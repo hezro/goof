@@ -1,0 +1,34 @@
+name: Example action with Snyk
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push request event but only for the master branch
+  push:
+    branches: [ master ]
+
+jobs:
+  # Job Name
+  snyk-security:
+    
+    runs-on: ubuntu-latest
+    
+    steps:      
+      - uses: actions/checkout@master
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Running Snyk vuln check
+        
+      # Running Snyk and outputs to a SARIF file to upload the results to Github code scanning
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --sarif-file-output=snyk.sarif
+          
+      - name: Upload results to Github code scanning
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: snyk.sarif
