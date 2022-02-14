@@ -18,7 +18,7 @@ jobs:
       - name: Run a one-line script
         run: echo Running Snyk vuln check
         
-      # Running Snyk and outputs to a SARIF file to upload the results to Github code scanning
+      # Running Snyk
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
         continue-on-error: true
