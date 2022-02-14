@@ -1,6 +1,5 @@
 name: Example action with Snyk
 
-# Controls when the workflow will run
 on:
   # Triggers the workflow on push request event but only for the master branch
   push:
@@ -8,7 +7,7 @@ on:
 
 jobs:
   # Job Name
-  snyk-security:
+  snyk-pipeline:
     
     runs-on: ubuntu-latest
     
