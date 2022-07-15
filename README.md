@@ -79,7 +79,7 @@ SNYK_PROJECT_ID=<PROJECT_ID> npm start
 
 ** The app will continue to work normally even if not provided a project id
 
-## Fixing the issues
+## Fixing the issues - test
 To find these flaws in this application (and in your own apps), run:
 ```
 npm install -g snyk
