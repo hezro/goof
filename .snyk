@@ -1,0 +1,17 @@
+ignore:
+  SNYK-JS-MQUERY-1050858:
+    - mongoose@4.2.4 > mquery@1.6.3:
+        reason: transitive ignore
+        expires: '2100-01-01'
+  SNYK-JS-MQUERY-1089718:
+    - mongoose@4.2.4 > mquery@1.6.3:
+        reason: transitive ignore
+        expires: '2100-01-01'
+  npm:debug:20170905:
+    - mongoose@4.2.4 > mquery@1.6.3:
+        reason: transitive ignore
+        expires: '2100-01-01'
+  npm:ms:20170412:
+    - mongoose@4.2.4 > mquery@1.6.3:
+        reason: transitive ignore
+        expires: '2100-01-01'
