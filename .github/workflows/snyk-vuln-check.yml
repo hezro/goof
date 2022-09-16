@@ -21,12 +21,12 @@ jobs:
         
       # Running Snyk
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@feat/sarif
+        uses: snyk/actions/node@master
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          command: "code test"
+          command: code test
           args: --sarif-file-output=snyk.sarif
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v1
