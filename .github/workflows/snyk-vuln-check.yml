@@ -21,7 +21,7 @@ jobs:
         
       # Running Snyk
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@0.3.0
+        uses: snyk/actions/node@feat/sarif
         continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
