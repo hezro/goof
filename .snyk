@@ -15,3 +15,12 @@ ignore:
     - mongoose@4.2.4 > mquery@1.6.3:
         reason: transitive ignore
         expires: '2100-01-01'
+  snyk:lic:npm:abbrev:ISC:
+  - '*':
+      created: '2022-10-31T19:55:00.929Z'
+      reason: testing abbrev and ISC
+  snyk:lic:npm:tap:ISC:
+  - '*':
+      created: '2022-10-31T19:28:10.690Z'
+      expires: '2022-11-14T19:28:10.224Z'
+      reason: testing tap and ISC
