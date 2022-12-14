@@ -21,7 +21,7 @@ jobs:
         
       - name: Create append_cmd
         env:
-          append_cmd: "--file=./package-lock.json --skip-unresolved=false"
+          append_cmd: "--file=./package-lock1.json --skip-unresolved=false"
         run: echo testing
         
       # Running Snyk
