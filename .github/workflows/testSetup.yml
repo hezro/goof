@@ -1,4 +1,4 @@
-name: Example action with Snyk
+name: Testing Snyk
 
 on:
   push:
@@ -18,9 +18,10 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Running Snyk vuln check
+        
       - name: Create append_cmd
         env:
-         append_cmd: "--file=./package-lock.json --skip-unresolved=false"
+          append_cmd: "--file=./package-lock.json --skip-unresolved=false"
         
       # Running Snyk
       - name: Run Snyk to check for vulnerabilities
