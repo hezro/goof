@@ -24,3 +24,7 @@ ignore:
       created: '2022-10-31T19:28:10.690Z'
       expires: '2022-11-14T19:28:10.224Z'
       reason: testing tap and ISC
+patch: {}
+exclude:
+  global:
+    - routes/**
