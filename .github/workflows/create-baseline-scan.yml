@@ -1,0 +1,28 @@
+name: Snyk Code baseline scan
+
+on:
+  push:
+    branches: [ main ]
+  # pull_request:
+  #  branches: [ main ]
+
+jobs:
+  snyk-pipeline:
+    runs-on: ubuntu-latest
+    name: Snyk Baseline Scan
+    env:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+    steps:      
+      - uses: actions/checkout@v2
+      - name: Download Snyk
+        run: |
+          wget -O snyk https://static.snyk.io/cli/latest/snyk-linux
+          chmod +x ./snyk
+          mv ./snyk /usr/local/bin/
+          
+      - name: Authenticate Snyk
+        run: snyk auth ${SNYK_TOKEN}
+          
+      - name: Run Snyk Code
+        run: snyk code test --sarif-file-output=snyk_code_baseline.json    
+        continue-on-error: true
