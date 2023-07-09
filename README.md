@@ -18,7 +18,7 @@ git clone https://github.com/Snyk/snyk-demo-todo
 npm install
 npm start
 ```
-This will run Goof locally, using a local mongo on the default port and listening on port 3001 (http://localhost:3001)
+This will run Goof locally, using a local Mongo on the default port and listening on port 3001 (http://localhost:3001)
 
 ## Running with docker-compose
 ```bash
