@@ -2,7 +2,7 @@ name: Snyk Code baseline scan
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   # pull_request:
   #  branches: [ main ]
 
