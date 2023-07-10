@@ -10,10 +10,40 @@ jobs:
     name: Snyk PR Scan
     env:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-    steps:      
-      - uses: actions/checkout@v2
-      - uses: actions/download-artifact@v3
-        with:
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: $GITHUB_BASE_REF
+    - name: Download Snyk
+      run: |
+         wget -O snyk https://static.snyk.io/cli/latest/snyk-linux
+         chmod +x ./snyk
+         mv ./snyk /usr/local/bin/
+          
+    - name: Authenticate Snyk
+      run: snyk auth ${SNYK_TOKEN}
+          
+    - name: Run Snyk Code
+      run: |          
+          snyk code test --sarif-file-output=${{ github.workspace }}/snyk_code_baseline.json    
+          continue-on-error: true
+    - uses: actions/upload-artifact@v3
+      with:
          name: snyk_code_baseline
-      - name: Display structure of downloaded files
-        run: ls -R
+         path: ${{ github.workspace }}/snyk_code_baseline.json      
+        
+    - uses: actions/checkout@v3
+         
+    - name: Run Snyk Code
+      run: |     
+          snyk code test --sarif-file-output=${{ github.workspace }}/snyk_code_pr.json    
+          continue-on-error: true
+    - uses: actions/upload-artifact@v3
+      with:
+          name: snyk_code_baseline
+          path: ${{ github.workspace }}/${{ github.workspace }}/snyk_code_pr.json        
+    - uses: actions/download-artifact@v3
+      with:
+        name: snyk_code_baseline
+    - name: Display structure of downloaded files
+      run: ls -R
