@@ -26,7 +26,7 @@ jobs:
       - name: Run Snyk Code
         run: |
           mkdir -p ${{ github.workspace }}/snyk_scans
-          snyk code test --sarif-file-output=snyk_code_baseline.json    
+          snyk code test --sarif-file-output=${{ github.workspace }}/snyk_scans/snyk_code_baseline.json    
         continue-on-error: true
       - uses: actions/upload-artifact@v3
         with:
