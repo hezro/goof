@@ -41,16 +41,14 @@ jobs:
       
     - name: Run Snyk Code
       run: |
-        echo "testing"
         sleep 10s
         snyk code test --help || true
-        sleep 5s
-        snyk code test -d --json-file-output=${{ github.workspace }}/snyk_code_pr.json || true    
+        snyk code test --json-file-output=${{ github.workspace }}/snyk_code_pr.json || true    
       continue-on-error: true
     - uses: actions/upload-artifact@v3
       with:
           name: snyk_code_pr
-          path: ${{ github.workspace }}}/snyk_code_pr.json        
+          path: ${{ github.workspace }}/snyk_code_pr.json        
     - uses: actions/download-artifact@v3
       with:
         name: snyk_code_baseline
@@ -58,5 +56,5 @@ jobs:
       run: ls -R
     - name: Cat files
       run: |
-        cat ${{ github.workspace }}}/snyk_code_pr.json
+        cat ${{ github.workspace }}/snyk_code_pr.json
         cat ${{ github.workspace }}/snyk_code_baseline.json
