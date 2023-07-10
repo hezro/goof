@@ -11,6 +11,7 @@ jobs:
     env:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
     steps:
+    # Checkout base ref branch
     - uses: actions/checkout@v3
       with:
         ref: ${{ github.base_ref }}
@@ -19,6 +20,7 @@ jobs:
          wget -O snyk https://static.snyk.io/cli/latest/snyk-linux
          chmod +x ./snyk
          mv ./snyk /usr/local/bin/
+         sudo npm install -g snyk-to-html
           
     - name: Authenticate Snyk
       run: snyk auth ${SNYK_TOKEN}
@@ -29,13 +31,10 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
          name: snyk_code_baseline
-         path: ${{ github.workspace }}/snyk_code_baseline.json      
-        
-    - uses: actions/checkout@v3
-    
-    - name: Display structure of downloaded files
-      run: ls -R
-      
+         path: ${{ github.workspace }}/snyk_code_baseline.json
+         
+    # Checkout PR branch    
+    - uses: actions/checkout@v3     
     - name: Authenticate Snyk
       run: snyk auth ${SNYK_TOKEN}   
       
@@ -44,17 +43,22 @@ jobs:
         sleep 10s       
         snyk code test --json-file-output=${{ github.workspace }}/snyk_code_pr.json || true    
       continue-on-error: true
+      
     - uses: actions/upload-artifact@v3
       with:
           name: snyk_code_pr
-          path: ${{ github.workspace }}/snyk_code_pr.json        
+          path: ${{ github.workspace }}/snyk_code_pr.json
+          
     - uses: actions/download-artifact@v3
       with:
         name: snyk_code_baseline
-    - name: Display structure of downloaded files
-      run: ls -R
+        
     - name: Check if new isuses have been introduced via the PR
       run: |
         chmod +x "${{ github.workspace }}/.github/snyk-code-pr-diff-amd64-linux"
         ls -lr "${{ github.workspace }}/.github/"        
         ${{ github.workspace }}/.github/snyk-code-pr-diff-amd64-linux ${{ github.workspace }}/snyk_code_baseline.json ${{ github.workspace }}/snyk_code_pr.json
+        # Check if snyk_code_PR_diff_scan.json exists
+        if [ -f ${{ github.workspace }}/snyk_code_PR_diff_scan.json ]; then
+          snyk-to-html -i ${{ github.workspace }}/snyk_code_PR_diff_scan.json -o -o snyk_code_pr_results.html || true
+        fi
