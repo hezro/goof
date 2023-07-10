@@ -32,7 +32,13 @@ jobs:
          path: ${{ github.workspace }}/snyk_code_baseline.json      
         
     - uses: actions/checkout@v3
-         
+    
+    - name: Display structure of downloaded files
+      run: ls -R
+      
+    - name: Authenticate Snyk
+      run: snyk auth ${SNYK_TOKEN}   
+      
     - name: Run Snyk Code
       run: snyk code test --sarif-file-output=${{ github.workspace }}/snyk_code_pr.json    
       continue-on-error: true
@@ -45,3 +51,7 @@ jobs:
         name: snyk_code_baseline
     - name: Display structure of downloaded files
       run: ls -R
+    - name: Cat files
+      run: |
+        cat ${{ github.workspace }}}/snyk_code_pr.json
+        cat ${{ github.workspace }}/snyk_code_baseline.json
