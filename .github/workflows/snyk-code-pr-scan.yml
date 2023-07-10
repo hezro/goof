@@ -55,7 +55,6 @@ jobs:
       run: ls -R
     - name: Check if new isuses have been introduced via the PR
       run: |
-        chmod +x "${GITHUB_WORKSPACE}/.github/snyk-code-pr-diff-amd64-linux"
-        ls -lr "${GITHUB_WORKSPACE}/.github/"
-        .${GITHUB_WORKSPACE}/.github/snyk-code-pr-diff-amd64-linux
-     # .${{ github.workspace }}/.github/snyk-code-pr-diff-amd64-linux ${{ github.workspace }}/snyk_code_baseline.json ${{ github.workspace }}/snyk_code_pr.json
+        chmod +x "${{ github.workspace }}/.github/snyk-code-pr-diff-amd64-linux"
+        ls -lr "${{ github.workspace }}/.github/"        
+        ${{ github.workspace }}/.github/snyk-code-pr-diff-amd64-linux ${{ github.workspace }}/snyk_code_baseline.json ${{ github.workspace }}/snyk_code_pr.json
