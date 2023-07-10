@@ -1,4 +1,4 @@
-name: Snyk Code PR scan
+name: Snyk Code PR Diff Scan
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
 jobs:
   snyk-pipeline:
     runs-on: ubuntu-latest
-    name: Snyk PR Scan
+    name: Snyk PR Diff Scan
     env:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
     steps:
@@ -20,7 +20,6 @@ jobs:
          wget -O snyk https://static.snyk.io/cli/latest/snyk-linux
          chmod +x ./snyk
          mv ./snyk /usr/local/bin/
-         sudo npm install -g snyk-to-html
           
     - name: Authenticate Snyk
       run: snyk auth ${SNYK_TOKEN}
@@ -28,6 +27,8 @@ jobs:
     - name: Run Snyk Code
       run: snyk code test --json-file-output=${{ github.workspace }}/snyk_code_baseline.json    
       continue-on-error: true
+      
+    # Upload the Snyk Code results from the main branch
     - uses: actions/upload-artifact@v3
       with:
          name: snyk_code_baseline
@@ -43,7 +44,8 @@ jobs:
         sleep 10s       
         snyk code test --json-file-output=${{ github.workspace }}/snyk_code_pr.json || true    
       continue-on-error: true
-      
+     
+    # Upload the Snyk Code results from the PR scan 
     - uses: actions/upload-artifact@v3
       with:
           name: snyk_code_pr
@@ -55,10 +57,5 @@ jobs:
         
     - name: Check if new isuses have been introduced via the PR
       run: |
-        chmod +x "${{ github.workspace }}/.github/snyk-code-pr-diff-amd64-linux"
-        ls -lr "${{ github.workspace }}/.github/"        
+        chmod +x "${{ github.workspace }}/.github/snyk-code-pr-diff-amd64-linux"      
         ${{ github.workspace }}/.github/snyk-code-pr-diff-amd64-linux ${{ github.workspace }}/snyk_code_baseline.json ${{ github.workspace }}/snyk_code_pr.json
-        # Check if snyk_code_PR_diff_scan.json exists
-        if [ -f ${{ github.workspace }}/snyk_code_PR_diff_scan.json ]; then
-          snyk-to-html -i ${{ github.workspace }}/snyk_code_PR_diff_scan.json -o -o snyk_code_pr_results.html || true
-        fi
