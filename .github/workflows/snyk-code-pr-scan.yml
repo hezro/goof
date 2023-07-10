@@ -54,7 +54,7 @@ jobs:
         name: snyk_code_baseline
     - name: Display structure of downloaded files
       run: ls -R
-    - name: Cat files
+    - name: Check if new isuses have been introduced via the PR
       run: |
-        cat ${{ github.workspace }}/snyk_code_pr.json
-        cat ${{ github.workspace }}/snyk_code_baseline.json
+        chmod +x "${GITHUB_WORKSPACE}/.github/snyk-code-pr-diff-amd64-linux"
+        ./${{ github.workspace }}/snyk-code-pr-diff-amd64-linux ${{ github.workspace }}/snyk_code_baseline.json ${{ github.workspace }}/snyk_code_pr.json
