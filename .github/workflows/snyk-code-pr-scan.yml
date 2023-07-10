@@ -1,0 +1,17 @@
+name: Snyk Code PR scan
+
+on:
+  pull_request:
+   branches: [ master ]
+
+jobs:
+  snyk-pipeline:
+    runs-on: ubuntu-latest
+    name: Snyk Baseline Scan
+    env:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+    steps:      
+      - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v3
+      - name: Display structure of downloaded files
+        run: ls -R
