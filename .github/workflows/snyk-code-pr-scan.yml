@@ -24,7 +24,7 @@ jobs:
       run: snyk auth ${SNYK_TOKEN}
           
     - name: Run Snyk Code
-      run: snyk code test --sarif-file-output=${{ github.workspace }}/snyk_code_baseline.json    
+      run: snyk code test --json-file-output=${{ github.workspace }}/snyk_code_baseline.json    
       continue-on-error: true
     - uses: actions/upload-artifact@v3
       with:
@@ -40,7 +40,12 @@ jobs:
       run: snyk auth ${SNYK_TOKEN}   
       
     - name: Run Snyk Code
-      run: snyk code test --sarif-file-output=${{ github.workspace }}/snyk_code_pr.json    
+      run: |
+        echo "testing"
+        sleep 10s
+        snyk code test --help || true
+        sleep 5s
+        snyk code test -d --json-file-output=${{ github.workspace }}/snyk_code_pr.json || true    
       continue-on-error: true
     - uses: actions/upload-artifact@v3
       with:
