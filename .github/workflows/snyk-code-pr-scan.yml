@@ -38,7 +38,7 @@ jobs:
       continue-on-error: true
     - uses: actions/upload-artifact@v3
       with:
-          name: snyk_code_baseline
+          name: snyk_code_pr
           path: ${{ github.workspace }}}/snyk_code_pr.json        
     - uses: actions/download-artifact@v3
       with:
