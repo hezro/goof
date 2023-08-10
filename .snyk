@@ -1,3 +1,5 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   SNYK-JS-MQUERY-1050858:
     - mongoose@4.2.4 > mquery@1.6.3:
@@ -7,24 +9,73 @@ ignore:
     - mongoose@4.2.4 > mquery@1.6.3:
         reason: transitive ignore
         expires: '2100-01-01'
-  npm:debug:20170905:
+  'npm:debug:20170905':
     - mongoose@4.2.4 > mquery@1.6.3:
         reason: transitive ignore
         expires: '2100-01-01'
-  npm:ms:20170412:
+  'npm:ms:20170412':
     - mongoose@4.2.4 > mquery@1.6.3:
         reason: transitive ignore
         expires: '2100-01-01'
-  snyk:lic:npm:abbrev:ISC:
-  - '*':
-      created: '2022-10-31T19:55:00.929Z'
-      reason: testing abbrev and ISC
-  snyk:lic:npm:tap:ISC:
-  - '*':
-      created: '2022-10-31T19:28:10.690Z'
-      expires: '2022-11-14T19:28:10.224Z'
-      reason: testing tap and ISC
-patch: {}
+  'snyk:lic:npm:abbrev:ISC':
+    - '*':
+        created: '2022-10-31T19:55:00.929Z'
+        reason: testing abbrev and ISC
+  'snyk:lic:npm:tap:ISC':
+    - '*':
+        created: '2022-10-31T19:28:10.690Z'
+        expires: '2022-11-14T19:28:10.224Z'
+        reason: testing tap and ISC
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - tap > nyc > istanbul-lib-instrument > babel-types > lodash:
+        patched: '2023-08-10T23:41:56.605Z'
+        id: SNYK-JS-LODASH-567746
+        path: tap > nyc > istanbul-lib-instrument > babel-types > lodash
+    - tap > nyc > istanbul-lib-instrument > babel-generator > lodash:
+        patched: '2023-08-10T23:41:56.605Z'
+        id: SNYK-JS-LODASH-567746
+        path: tap > nyc > istanbul-lib-instrument > babel-generator > lodash
+    - tap > nyc > istanbul-lib-instrument > babel-traverse > lodash:
+        patched: '2023-08-10T23:41:56.605Z'
+        id: SNYK-JS-LODASH-567746
+        path: tap > nyc > istanbul-lib-instrument > babel-traverse > lodash
+    - tap > nyc > istanbul-lib-instrument > babel-template > lodash:
+        patched: '2023-08-10T23:41:56.605Z'
+        id: SNYK-JS-LODASH-567746
+        path: tap > nyc > istanbul-lib-instrument > babel-template > lodash
+    - tap > nyc > istanbul-lib-instrument > babel-generator > babel-types > lodash:
+        patched: '2023-08-10T23:41:56.605Z'
+        id: SNYK-JS-LODASH-567746
+        path: >-
+          tap > nyc > istanbul-lib-instrument > babel-generator > babel-types >
+          lodash
+    - tap > nyc > istanbul-lib-instrument > babel-traverse > babel-types > lodash:
+        patched: '2023-08-10T23:41:56.605Z'
+        id: SNYK-JS-LODASH-567746
+        path: >-
+          tap > nyc > istanbul-lib-instrument > babel-traverse > babel-types >
+          lodash
+    - tap > nyc > istanbul-lib-instrument > babel-template > babel-types > lodash:
+        patched: '2023-08-10T23:41:56.605Z'
+        id: SNYK-JS-LODASH-567746
+        path: >-
+          tap > nyc > istanbul-lib-instrument > babel-template > babel-types >
+          lodash
+    - tap > nyc > istanbul-lib-instrument > babel-template > babel-traverse > lodash:
+        patched: '2023-08-10T23:41:56.605Z'
+        id: SNYK-JS-LODASH-567746
+        path: >-
+          tap > nyc > istanbul-lib-instrument > babel-template > babel-traverse
+          > lodash
+    - tap > nyc > istanbul-lib-instrument > babel-template > babel-traverse > babel-types > lodash:
+        patched: '2023-08-10T23:41:56.605Z'
+        id: SNYK-JS-LODASH-567746
+        path: >-
+          tap > nyc > istanbul-lib-instrument > babel-template > babel-traverse
+          > babel-types > lodash
 exclude:
   global:
     - routes/**
+version: v1.25.1
