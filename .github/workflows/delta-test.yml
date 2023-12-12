@@ -1,0 +1,28 @@
+name: Test Snyk Delta
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  snyk-pipeline:
+    runs-on: ubuntu-latest
+    name: Snyk CLI Scans
+    env:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+    steps:      
+      - uses: actions/checkout@v2
+      - name: Install packages
+        run: npm install --loglevel=error
+      - name: Install Snyk and authenticate
+        run: |
+         sudo npm install -g snyk
+         sudo npm install -g snyk-delta
+         snyk auth ${SNYK_TOKEN}          
+  
+      - name: Run Snyk Test
+        run: |
+            snyk test --json --print-deps | snyk-delta --baselineOrg 774fd541-8351-4b80-9b89-8998e4a5ac89 --baselineProject 60adc986-f1cb-435e-9a06-2e6a8ab07d78
+            echo $?
